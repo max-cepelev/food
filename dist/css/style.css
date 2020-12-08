@@ -153,6 +153,10 @@ a {
     font-weight: 300;
     line-height: 36px;
     color: rgba(0, 0, 0, 0.7); }
+  .tabcontent.hide {
+    display: none; }
+  .tabcontent.show {
+    display: block; }
 
 .tabheader {
   width: 280px;

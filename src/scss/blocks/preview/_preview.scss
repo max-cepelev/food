@@ -44,6 +44,12 @@
         line-height: 36px;
         color: rgba(0, 0, 0, 0.7);
     }
+    &.hide {
+        display: none;
+    }
+    &.show {
+        display: block;
+    }
 }
 .tabheader {
     width: 280px;
