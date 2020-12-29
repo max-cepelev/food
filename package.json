@@ -1,5 +1,5 @@
 {
-  "name": "project",
+  "name": "food",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -18,7 +18,8 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-imagemin": "^7.1.0",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0"
+    "gulp-sass": "^4.1.0",
+    "json-server": "^0.16.3"
   },
   "browserslist": [
     "last 1 version",
