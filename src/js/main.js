@@ -273,4 +273,125 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+
+    // slider
+
+    const   slides = document.querySelectorAll('.offer__slide'),
+            currentSlide = document.querySelector('#current'),
+            totalSlides = document.querySelector('#total'),
+            prevSlide = document.querySelector('.offer__slider-prev'),
+            nextSlide = document.querySelector('.offer__slider-next'),
+            slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+            slidesField = document.querySelector('.offer__slider-inner'),
+            width = window.getComputedStyle(slidesWrapper).width;
+
+    let slideIndex = 1;
+    let offset = 0;
+
+    // 1 вариант
+    // showSlides(slideIndex);
+
+    // if (slides.length < 10) {
+    //     totalSlides.textContent = `0${slides.length}`;
+    // } else {
+    //     totalSlides.textContent = slides.length;
+    // }
+
+    // function showSlides(n) {
+    //     if (n > slides.length) {
+    //         slideIndex = 1;
+    //     }
+
+    //     if (n < 1) {
+    //         slideIndex = slides.length;
+    //     }
+
+    //     slides.forEach(item => item.style.display = 'none');
+
+    //     slides[slideIndex - 1].style.display = 'block';
+
+    //     if (slideIndex < 10) {
+    //         currentSlide.textContent = `0${slideIndex}`;
+    //     } else {
+    //         currentSlide.textContent = slideIndex;
+    //     }
+    // }
+
+    // function plusSlide(n) {
+    //     showSlides(slideIndex += n);
+    // }
+
+    // prevSlide.addEventListener('click', () => {
+    //     plusSlide(-1);
+    // });
+    // nextSlide.addEventListener('click', () => {
+    //     plusSlide(1);
+    // });
+
+
+    // 2 вариант:
+
+    if (slides.length < 10) {
+        totalSlides.textContent = `0${slides.length}`;
+        currentSlide.textContent = `0${slideIndex}`;
+    } else {
+        totalSlides.textContent = slides.length;
+        currentSlide.textContent = slideIndex;
+    }
+
+
+    slidesField.style.width = 100 * slides.length + '%';
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = '0.5s all';
+    slides.forEach(slide => {
+        slide.style.width = width;
+    });
+
+
+    nextSlide.addEventListener('click', () => {
+
+        if (offset == (+width.slice(0, width.length - 2) * (slides.length - 1))) {
+            offset = 0;
+        } else {
+            offset += +width.slice(0, width.length - 2);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex == slides.length) {
+            slideIndex = 1;
+        } else {
+            slideIndex++;
+        }
+
+        if (slides.length < 10) {
+            currentSlide.textContent = `0${slideIndex}`;
+        } else {
+            currentSlide.textContent = slideIndex;
+        }
+    });
+
+    prevSlide.addEventListener('click', () => {
+
+        if (offset == 0) {
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+        } else {
+            offset -= +width.slice(0, width.length - 2);
+        }
+
+        slidesField.style.transform = `tranlateX(-${offset}px)`;
+
+        if (slideIndex == 1) {
+            slideIndex = slides.length;
+        } else {
+            slideIndex--;
+        }
+
+        if (slides.length < 10) {
+            currentSlide.textContent = `0${slideIndex}`;
+        } else {
+            currentSlide.textContent = slideIndex;
+        }
+    });
 });
