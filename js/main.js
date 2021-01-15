@@ -1,42 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-    // Tabs
-    const   tabsContent = document.querySelectorAll('.tabcontent'),
-            tabsParent = document.querySelector('.tabheader__items'),
-            tabs       = tabsParent.querySelectorAll('.tabheader__item');
+    const   tabs = require('./modules/tabs'),
+            cards = require('./modules/cards');
 
-
-    function hideTabContent() {
-        tabsContent.forEach(item => {
-            item.classList.add('hide');
-            item.classList.remove('show');
-        });
-        tabs.forEach(item => {
-            item.classList.remove('tabheader__item_active');
-        });
-    }
-
-    function showTabContent(i = 0) {
-        tabsContent[i].classList.add('show');
-        tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabheader__item_active');
-    }
-
-    hideTabContent();
-    showTabContent();
-
-    tabsParent.addEventListener('click', (event) => {
-        const target = event.target;
-
-        if (target && target.classList.contains('tabheader__item')) {
-            tabs.forEach((item, i) => {
-                if (target === item) {
-                    hideTabContent();
-                    showTabContent(i);
-                }
-            });
-        }
-    });
 
     // Timer
 
@@ -136,63 +102,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', showModalByScroll);
 
-    // Используем классы для карточек
-
-    class MenuCard {
-        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
-            this.src = src;
-            this.alt = alt;
-            this.title = title;
-            this.descr = descr;
-            this.price = price;
-            this.parent = document.querySelector(parentSelector);
-            this.classes = classes;
-            this.transfer = 75;
-            this.changeToRUB();
-        }
-
-        changeToRUB() {
-            this.price = this.price * this.transfer;
-        }
-
-        render() {
-            const element = document.createElement('div');
-            if (this.classes.length === 0) {
-                this.element = 'menu__item';
-                element.classList.add(this.element);
-            } else {
-                this.classes.forEach(className => element.classList.add(className));
-            }
-            element.innerHTML = `
-                <img src=${this.src} alt=${this.alt}>
-                <h3 class="menu__item-subtitle">${this.title}</h3>
-                <div class="menu__item-descr">${this.descr}</div>
-                <div class="menu__item-divider"></div>
-                <div class="menu__item-price">
-                    <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
-                </div>
-            `;
-            this.parent.append(element);
-        }
-    }
-
-    const getResource = async (url) => {
-        const res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-
-        return await res.json();
-    };
-
-    getResource('http://localhost:3000/menu')
-        .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            });
-        });
 
 
     // Forms
