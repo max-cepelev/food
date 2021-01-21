@@ -1,6 +1,6 @@
 function cards() {
-        // Используем классы для карточек
-
+    
+    // Используем классы для карточек
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
             this.src = src;
