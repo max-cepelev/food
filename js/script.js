@@ -1,3 +1,5 @@
+require('es6-promise').polyfill();
+
 import tabs from './modules/tabs';
 import calc from './modules/calc';
 import forms from './modules/forms';
